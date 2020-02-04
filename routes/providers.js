@@ -15,9 +15,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-// Get back all providers
+// Get providers 10 * page
 router.get('/', async (req, res) => {
-  const skipResults = req.query.page * 10 || 0
+  const skipResults = req.query.page * 10 - 10 || 0
   try {
     const providers = await Provider.find()
       .populate('specialty')

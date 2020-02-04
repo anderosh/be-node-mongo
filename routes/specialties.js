@@ -2,12 +2,28 @@ const express = require('express')
 const router = express.Router()
 const Specialty = require('../models/Specialties')
 
-// Get back all specialties
+// Get specialties 10 * page
 router.get('/', async (req, res) => {
+  const skipResults = req.query.page * 10 - 10 || 0
   try {
     const specialties = await Specialty.find()
+      .limit(10)
+      .skip(skipResults)
     res.json(specialties)
   } catch (err) {
+    res.status(500).json({ message: err })
+  }
+})
+
+// Search specialties by Filter
+router.get('/name/:name', async (req, res) => {
+  try {
+    const specialties = await Specialty.find({
+      name: req.params.name
+    })
+    res.json(specialties)
+  } catch (err) {
+    console.log(err)
     res.status(500).json({ message: err })
   }
 })
