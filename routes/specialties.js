@@ -1,49 +1,49 @@
 const express = require('express')
 const router = express.Router()
-const Speciality = require('../models/Specialties')
+const Specialty = require('../models/Specialties')
 
 // Get back all specialties
 router.get('/', async (req, res) => {
   try {
-    const specialties = await Speciality.find()
+    const specialties = await Specialty.find()
     res.json(specialties)
   } catch (err) {
-    res.json({ message: err })
+    res.status(500).json({ message: err })
   }
 })
 
 // Create specialtie
 router.post('/', async (req, res) => {
-  const speciality = new Speciality({
+  const specialty = new Specialty({
     name: req.body.name,
     createdBy: req.body.createdBy,
     createdAt: Date.now()
   })
   try {
-    const newSpeciality = await speciality.save()
-    res.json(newSpeciality)
+    const newSpecialty = await specialty.save()
+    res.json(newSpecialty)
   } catch (err) {
-    res.json({ message: err })
+    res.status(500).json({ message: err })
   }
 })
 
 // Delete specialtie
-router.delete('/:specialityId', async (req, res) => {
+router.delete('/:specialtyId', async (req, res) => {
   try {
-    const removedSpeciality = await Speciality.remove({
-      _id: req.params.specialityId
+    const removedSpecialty = await Specialty.remove({
+      _id: req.params.specialtyId
     })
-    res.json(removedSpeciality)
+    res.json(removedSpecialty)
   } catch (err) {
-    res.json({ message: err })
+    res.status(500).json({ message: err })
   }
 })
 
 // Update specialtie
-router.patch('/:specialityId', async (req, res) => {
+router.patch('/:specialtyId', async (req, res) => {
   try {
-    const updatedSpeciality = await Speciality.updateOne(
-      { _id: req.params.specialityId },
+    const updatedSpecialty = await Specialty.updateOne(
+      { _id: req.params.specialtyId },
       {
         $set: {
           name: req.body.name,
@@ -52,9 +52,9 @@ router.patch('/:specialityId', async (req, res) => {
         }
       }
     )
-    res.json(updatedSpeciality)
+    res.json(updatedSpecialty)
   } catch (err) {
-    res.json({ message: err })
+    res.status(500).json({ message: err })
   }
 })
 

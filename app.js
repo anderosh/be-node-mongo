@@ -1,4 +1,5 @@
 const express = require('express')
+var cors = require('cors')
 const app = express()
 const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
@@ -9,6 +10,7 @@ const connectionString = process.env.DB_CONECTION
 // MIDLEWARES
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(cors())
 
 // Import Routes
 const specialtiesRoute = require('./routes/specialties')

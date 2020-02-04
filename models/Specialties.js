@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const SpecialtiesSchema = mongoose.Schema({
+const specialtiesSchema = mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -20,4 +20,4 @@ const SpecialtiesSchema = mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Speciality', SpecialtiesSchema)
+module.exports = mongoose.model('Specialty', specialtiesSchema)
